@@ -1,5 +1,5 @@
 ## Welcome to GitHub Pages
-你可以使用[https://yujinping.github.io]访问站点
+你可以使用[访问站点](https://yujinping.github.io)
 
 You can use the [editor on GitHub](https://github.com/yujinping/yujinping.github.io/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
 
