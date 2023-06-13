@@ -1,0 +1,920 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>风信子-技术笔记</title>
+    <link>https://yujinping.top/</link>
+    <description>Recent content on 风信子-技术笔记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 01 Jun 2023 07:23:00 +0800</lastBuildDate><atom:link href="https://yujinping.top/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mac下使用GraalVM和SpringBoot3.1构建本地应用</title>
+      <link>https://yujinping.top/post/java/using_-graalvm_build_native_app/</link>
+      <pubDate>Thu, 01 Jun 2023 07:23:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/java/using_-graalvm_build_native_app/</guid>
+      <description>准备工作 安装GraalVM工具 使用 sdkman 下载并安装 GraalVM的jdk sdk install java 22.3.1.r17-grl 安装好后，将该sdk设置为默认 sdk default java 22.3.1.r17-grl 检查版本 java -version openjdk version &amp;#34;17.0.6&amp;#34; 2023-01-17 OpenJDK Runtime Environment GraalVM CE 22.3.1 (build 17.0.6+10-jvmci-22.3-b13) OpenJDK 64-Bit Server VM GraalVM CE 22.3.1 (build 17.0.6+10-jvmci-22.3-b13, mixed mode, sharing) 检查gu工具版本： gu --version GraalVM Updater 22.3.1 安装native-image gu install native-image # 若无法正常安装，可以将其github.co</description>
+    </item>
+    
+    <item>
+      <title>如何在你的MacBookPro上升级getopt命令</title>
+      <link>https://yujinping.top/post/mac/upgrade_getopt_cmd_on_your_mbp/</link>
+      <pubDate>Sat, 11 Mar 2023 08:23:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/mac/upgrade_getopt_cmd_on_your_mbp/</guid>
+      <description>缘起 最近一直在因为自动化测试搭建环境的原因，使用 linux shell 进行编程，已使得能够一键搭建测试环境。 服务器端的 getopt 工具是增强版的，而本机 MacBookPro 上的版本则是系统自带的陈旧版本，因此有必要升级成为增强版。 升级 对于使用 brew 这个管理工具的人来说，比较幸运，有个 gnu-getopt 可以使用。安装起来也很简单。 brew install gnu-getopt 此时get</description>
+    </item>
+    
+    <item>
+      <title>批量删除docker的容器及镜像</title>
+      <link>https://yujinping.top/post/docker/batch_rm_containers_or_images/</link>
+      <pubDate>Mon, 06 Mar 2023 17:23:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/docker/batch_rm_containers_or_images/</guid>
+      <description>批量删除所有容器 docker rm `docker ps -a -q` 批量删除所有镜像 docker rmi `docker images -q` 批量删除含有关键字的容器 docker rm `docker ps -a | grep dmj | awk &amp;#39;{print $1}&amp;#39;` 批量删除含有关键字的镜像 docker rmi --force `docker images | grep dmj | awk &amp;#39;{print $1}&amp;#39;` 关键知识点 docker ps -a -q 命令输出容器 id 使用grep &amp;quot;关键字&amp;quot; 命令查找想要的容器或镜像 使用 awk &#39;{print $1}&#39; 命令将第一列输出打印出</description>
+    </item>
+    
+    <item>
+      <title>如何查看mysql数据库各个表的大小</title>
+      <link>https://yujinping.top/post/mysql/how_to_view_table_size/</link>
+      <pubDate>Mon, 06 Mar 2023 15:45:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/mysql/how_to_view_table_size/</guid>
+      <description>参考原文: https://www.cnblogs.com/chuanzhang053/p/16937461.html 查看每个库中表的大小，按大小排序 注意：表占用空间大小，包括 数据 和 索引 SELECT table_schema as `Database`, table_name AS `Table`, round(((data_length + index_length) / 1024 / 1024), 2) `Size in MB` FROM information_schema.TABLES ORDER BY (data_length + index_length) DESC; 查看某个特定的库中，表的大小 SELECT table_schema as `Database`, table_name AS `Table`, round(((data_length + index_length) / 1024 / 1024), 2) `Size in MB` FROM information_schema.TABLES WHERE table_schema = &amp;#34;iuap_data_datafusion&amp;#34; # 替换为具体的库名 ORDER BY (data_length + index_length) DESC;</description>
+    </item>
+    
+    <item>
+      <title>使用docker alpine 的 java容器运行grpc服务报 &#34;Could not find TLS ALPN provider; no working netty-tcnative, Conscrypt, or Jetty NPN/ALPN available&#34;的错误</title>
+      <link>https://yujinping.top/post/docker/could-not-find-tls-alpn-provider-no-working-netty-tcnative-conscrypt-or-jetty/</link>
+      <pubDate>Mon, 06 Mar 2023 10:23:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/docker/could-not-find-tls-alpn-provider-no-working-netty-tcnative-conscrypt-or-jetty/</guid>
+      <description>背景 在使用 java8（amazon corretto）本机（mac book pro）编译和运行项目时，无任何异常。将编译后的 jar 文件打包到 docker 镜像后，再运行，报”Could not find TLS ALPN provider; no working netty-tcnative, Conscrypt, or Jetty NPN/ALPN available“ 这个错误。 Dockerfile 内容如下： FROM amazoncorretto:8-alpine RUN sed -i &amp;#39;s/dl-cdn.alpinelinux.org/mirror.tuna.tsinghua.edu.cn/g&amp;#39; /etc/apk/repositories RUN apk --update add curl bash ttf-dejavu &amp;amp;&amp;amp; \ rm -rf /var/cache/apk/* RUN apk add -U tzdata &amp;amp;&amp;amp; \ /bin/cp /usr/share/zoneinfo/Asia/Shanghai</description>
+    </item>
+    
+    <item>
+      <title>测试用例编写</title>
+      <link>https://yujinping.top/post/work/testing_case_sample/</link>
+      <pubDate>Fri, 03 Feb 2023 19:20:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/work/testing_case_sample/</guid>
+      <description>当前测试组(集成测试/接口测试)的方式 采用行业内流行的 xmind（脑图）的方式编写测试用例，通过生成遵循一定格式的 Excel 文件，可以导入到禅道系统。参见《测试用例设计-模板.xmind》 优点： xmind 文档能够清晰体现出主线思路。 缺点： 额外安装软件 用例过多时，无法直观看到有多少个用例 采用 jmeter 作为</description>
+    </item>
+    
+    <item>
+      <title>jmeter与禅道用例全自动化运行的代码规范</title>
+      <link>https://yujinping.top/post/work/jmeter_coding_rules/</link>
+      <pubDate>Sun, 15 Jan 2023 09:20:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/work/jmeter_coding_rules/</guid>
+      <description>需求背景 对于全量自动化测试而言，目前采用的是 JMeter 进行测试脚本的编写，禅道系统来管理测试用例及 bug 修复等工作流程。对于每次新功能上线，都要将老的功能进行自动化测试，以验证这些功能的稳定性，重要程度也是很突出的。然而大量运行测试用例，手工去禅道系统登记运行结果的方式，则明显的降低了执行效</description>
+    </item>
+    
+    <item>
+      <title>使用JUnit5进行业务接口的单元测试</title>
+      <link>https://yujinping.top/post/work/unit_testing/</link>
+      <pubDate>Tue, 03 Jan 2023 19:20:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/work/unit_testing/</guid>
+      <description>准备测试用例 无论是单元测试还是业务测试，无非就是输入一些数据，然后看输出的结果是否符合预期。符合预期的，那么意味着程序运行正常；不符合预期，则可能是程序存在问题。 数据格式&amp;amp;安全性校验用例 对于各个输入参数，通常会有提供该参数及不提供该参数 2 种用例。即必填、可选。 对于各个输入</description>
+    </item>
+    
+    <item>
+      <title>让git命令记住你的账号与密码</title>
+      <link>https://yujinping.top/post/tools/git_remember_the_account/</link>
+      <pubDate>Mon, 02 Jan 2023 07:32:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/tools/git_remember_the_account/</guid>
+      <description>git config --global credential.helper store 这样只需要第一次输入用户名及密码即可。</description>
+    </item>
+    
+    <item>
+      <title>常用编程技巧收藏</title>
+      <link>https://yujinping.top/post/book/it_tech_book/</link>
+      <pubDate>Fri, 02 Dec 2022 12:02:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/book/it_tech_book/</guid>
+      <description>SHELL 基础编程 知乎-掌握 Shell 编程，一篇就够了</description>
+    </item>
+    
+    <item>
+      <title>Linux使用find命令批量处理文件权限</title>
+      <link>https://yujinping.top/post/linux/find/</link>
+      <pubDate>Fri, 25 Nov 2022 20:01:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/linux/find/</guid>
+      <description>使用 find 批量修改 sh 文件的权限 # 当前文件夹下所有文件设置为可执行 find . -name &amp;#34;*&amp;#34; -exec chmod +x {} \; # 当前文件夹下所有的 *.sh 文件设置为可执行 find . -name &amp;#34;*.sh&amp;#34; -exec chmod +x {} \;</description>
+    </item>
+    
+    <item>
+      <title>使用docker搭建easy-mock</title>
+      <link>https://yujinping.top/post/test/easy_mock_with_docker/</link>
+      <pubDate>Sat, 12 Nov 2022 08:18:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/test/easy_mock_with_docker/</guid>
+      <description>官方镜像 https://hub.docker.com/r/easymock/easymock 目录结构 ➜ docker-compose git:(master) ✗ tree . └── easy-mock ├── docker-compose.yml └── production.json 1 directory, 2 files docker-compose.yml 内容 version: &amp;#34;3&amp;#34; services: mongodb: image: mongo:3.4.1 volumes: # ./data/db 数据库文件存放地址，根据需要修改为本地地址 - &amp;#34;./data/mongodb:/data/db&amp;#34; networks: - easy-mock restart: always redis: image: redis:4.0.6 command: redis-server --appendonly yes volumes: # ./data/redis redis 数据文件存放地址，根据需要修改为本地地址 - &amp;#34;./data/redis:/data&amp;#34; networks: - easy-mock restart: always web: image: easymock/easymock:1.6.0 command: /bin/bash -c &amp;#34;npm start&amp;#34; ports: - &amp;#34;7300:7300&amp;#34; volumes: # 日志地址，根据需要修改为本地地址 - &amp;#34;./logs:/home/easy-mock/easy-mock/logs&amp;#34;</description>
+    </item>
+    
+    <item>
+      <title>使用Dom4j配合xpath解析jmeter脚本文件</title>
+      <link>https://yujinping.top/post/java/dom4j_xpath_jmeter/</link>
+      <pubDate>Thu, 03 Nov 2022 18:01:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/java/dom4j_xpath_jmeter/</guid>
+      <description>引入的依赖 &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.dom4j&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;dom4j&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.1.3&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;jaxen&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;jaxen&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;1.2.0&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; 注意：使用 dom4j 配合 xpath 的时候，必须要引入 jaxen 依赖项，否则无法使用 xpath. 如果没有添加依赖的话，会报如下错误： 如果没有添加的话 会出现以下错误 * Exception in thread &amp;#34;main&amp;#34; java.lang.NoClassDefFoundError: org/jaxen/NamespaceContext * at org.dom4j.DocumentFactory.createXPath(DocumentFactory.java:230) * at org.dom4j.tree.AbstractNode.createXPath(AbstractNode.java:207) * at org.dom4j.tree.AbstractNode.selectSingleNode(AbstractNode.java:183) 解析 jmeter 脚本文件 jmeter 的脚本文件本质上是 xml 格式的文本文件。 重点使用的函数是selectNodes或</description>
+    </item>
+    
+    <item>
+      <title>使用picocli开发基于springboot的命令行工具</title>
+      <link>https://yujinping.top/post/java/picocli_with_springboot/</link>
+      <pubDate>Thu, 03 Nov 2022 18:01:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/java/picocli_with_springboot/</guid>
+      <description>添加 maven 依赖 当你已经创建好 springboot 应用后，将 picocli 的依赖加入到 pom.xml 中 &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;info.picocli&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;picocli-spring-boot-starter&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;4.6.3&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; 修改 springboot 主程序 将你的 springboot 主程序修改为实现了ApplicationRunner接口，并将主程序命令定义为helper package top.yjp.testing; import lombok.extern.slf4j.Slf4j; import org.springframework.boot.ApplicationArguments; import org.springframework.boot.ApplicationRunner; import org.springframework.boot.SpringApplication; import org.springframework.boot.autoconfigure.SpringBootApplication; import picocli.CommandLine; import top.yjp.testing.helper.cmd.DemoCommand; import javax.annotation.Resource; @SpringBootApplication(proxyBeanMethods = false) @Slf4j @CommandLine.Command( name = &amp;#34;helper&amp;#34;, description = &amp;#34;自动化测试帮助程序 &amp;#34;, mixinStandardHelpOptions = true, version = &amp;#34;1.0.1&amp;#34;, subcommands = {DemoCommand.class} )</description>
+    </item>
+    
+    <item>
+      <title>python好用的命令行开发工具库</title>
+      <link>https://yujinping.top/post/test/python_cli_lib/</link>
+      <pubDate>Thu, 27 Oct 2022 08:23:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/test/python_cli_lib/</guid>
+      <description>全自动的 CLI 工具库 Fire https://github.com/google/python-fire click https://click.palletsprojects.com/en/8.1.x/ typer https://typer.tiangolo.com/ poetry 一个 python 打包工具 https://python-poetry.org/</description>
+    </item>
+    
+    <item>
+      <title>使用 mysqldump 命令备份 docker 中的 MYSQL 数据库</title>
+      <link>https://yujinping.top/post/mysql/mysqldump_in_docker_container/</link>
+      <pubDate>Tue, 11 Oct 2022 07:23:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/mysql/mysqldump_in_docker_container/</guid>
+      <description>Docker 使用 mysqldump 命令备份导出 mysql 容器中的数据 查看 Docker 中运行的容器 [root@instance-0pk09gjj ~]# docker ps 使用 mysqldump 命令备份导出数据库中的所有表结构和数据 [root@instance-0pk09gjj home]# mkdir bak [root@instance-0pk09gjj /]# docker exec -it mysql01 mysqldump -uroot -proot demo &amp;gt; /home/bak/demo.sql 使用 mysqldump 只导出数据不导出表结构 [root@instance-0pk09gjj /]# docker exec -it mysql01 mysqldump --opt -t -uroot -proot demo &amp;gt; /home/bak/demo2.sql 使用 mysqldump 只导出表结构不导出数据 [root@instance-0pk09gjj /]# docker exec -it mysql01 mysqldump --opt -d -uroot -proot demo &amp;gt; /home/bak/demo1.sql 使用 mysqldump 导出特定表的结构 [root@instance-0pk09gjj /]# docker exec -it</description>
+    </item>
+    
+    <item>
+      <title>如何管理线上版本</title>
+      <link>https://yujinping.top/post/think/how_to_mange_version_on_product_env/</link>
+      <pubDate>Mon, 10 Oct 2022 10:10:00 +0000</pubDate>
+      
+      <guid>https://yujinping.top/post/think/how_to_mange_version_on_product_env/</guid>
+      <description>对于已经上线的产品，如何查看相应的版本，以保证客户使用或测试过程中发现问题时能够及时根据产品的版本号定位出当时的环境，是个比较有意思的话题。 服务端产品 对于提供 http(s)服务的产品，可以使用</description>
+    </item>
+    
+    <item>
+      <title>在研发工作中使用语义化版本控制</title>
+      <link>https://yujinping.top/post/work/semver_on_product_dev/</link>
+      <pubDate>Mon, 26 Sep 2022 13:20:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/work/semver_on_product_dev/</guid>
+      <description>语义化版本管理的重要意义 产品的语义化版本管理 新的功能需求 研发的语义化版本管理 新的功能需求 bug修复</description>
+    </item>
+    
+    <item>
+      <title>appium-doctor 检测自动化测试配置时提示没有安装bundletool.jar</title>
+      <link>https://yujinping.top/post/test/appium_bundletool_jar_not_installed/</link>
+      <pubDate>Thu, 22 Sep 2022 08:23:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/test/appium_bundletool_jar_not_installed/</guid>
+      <description>下载 bundletool.jar 首先去到官网 下载最新版本的 bundletool.jar, 注意： 下载完成后需要重命名为 bundletool.jar 加入到 android_home 内 在mac你的 $ANDROID_HOME 目录内新建文件夹 bundle-tool 得到这样一个文件夹: $ANDROID_HOME/bundle-tool/ 将下载并重命名的bundletool.jar复制到该文件夹，并给bundletool.jar授予可执行权限 chmod +x $ANDROID_HOME/bundle-tool/bundletool.jar 加入到 $PATH 内 用编辑器打开 ~/.zshrc 文件在文件末尾，</description>
+    </item>
+    
+    <item>
+      <title>测试工作流程</title>
+      <link>https://yujinping.top/post/test/flow_of_test/</link>
+      <pubDate>Wed, 21 Sep 2022 08:23:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/test/flow_of_test/</guid>
+      <description>测试工作流程及阶段产出物 参与产品需求会，理解需求文档，并在沟通和理解正确的情况下按照需求编写测试用例(xmind),测试用例的编写依据测试用例编写规范进行。 产出物: 测试用例(xmind文件)1份 测试用例内部审查后，导出Excel文件，并补充[用例类型],[用例作者] 这2个字段，后</description>
+    </item>
+    
+    <item>
+      <title>好用的源码行数统计工具——cloc</title>
+      <link>https://yujinping.top/post/tools/cloc/</link>
+      <pubDate>Fri, 16 Sep 2022 07:32:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/tools/cloc/</guid>
+      <description>cloc简介 cloc是一款用于统计源码信息行数的工具，可以针对许多编程语言中源代码的空白行、注释行和物理行进行计数。给定两个版本的代码库，cloc 可以计算空白行、注释行和源代码行的差异。它完全用 Perl编写，不依赖于 Perl v5.6 及更高版本的标准发行版（来自一些外部模块的代码嵌入在 cloc</description>
+    </item>
+    
+    <item>
+      <title>使用 requirements.txt 管理你的python项目的依赖</title>
+      <link>https://yujinping.top/post/test/using_requirements_txt_for_python_project/</link>
+      <pubDate>Thu, 15 Sep 2022 20:32:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/test/using_requirements_txt_for_python_project/</guid>
+      <description>前言 python 项目并没有类似于 java 的 maven 一样标准的库依赖管理工具。但是python开源届则普遍采用了一种约定使用 requirements.txt 保存项目依赖模块的做法。 而管理这个 requirements.txt 一般情况下，使用 pipreqs 这个工具。 安装命令如下: pip install pipreqs 生成项目的依赖 # ./ 指定要生成 requirements.txt 到哪个文件夹 # --encoding=utf8 指定要生成 requirements.txt 内容的编码格式 # --force 指定若 requirements.txt 存在时是否</description>
+    </item>
+    
+    <item>
+      <title>datagrap mysql Communications link failure</title>
+      <link>https://yujinping.top/post/mysql/datagrap_mysql_communications_link_failure/</link>
+      <pubDate>Mon, 12 Sep 2022 22:45:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/mysql/datagrap_mysql_communications_link_failure/</guid>
+      <description>今天使用 datagrap 连接 mysql（5.7） 服务器,在确认链接信息正确的情况下 竟然提示 mysql Communications link failure 其他人使用 navicat 连接则正常。 最后发现是因为 datagrap 默认使用 ssl 连接导致的。在数据库连接对话框 高级 选项里，找到 useSSL 将其值修改为 False即可。 即不使用ssl方式连接该mysql服务器。</description>
+    </item>
+    
+    <item>
+      <title>使用appium与python进行app的UI自动化测试</title>
+      <link>https://yujinping.top/post/test/using_appium_for_app_ui_auto_testing/</link>
+      <pubDate>Sun, 11 Sep 2022 18:23:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/test/using_appium_for_app_ui_auto_testing/</guid>
+      <description>前言 对于自动化测试而言，UI 自动化测试相当于最后的验收测试环节。此时，其前置的单元自动化测试，接口自动化测试，接口集成自动化测试都是保障数据及逻辑层面的 正确性。而 UI自动化测试 则真正集成了用户端的真实操作，其结果也更贴近用户的感受。因此，也就更为重要。但由于电商互联网的快节奏改版</description>
+    </item>
+    
+    <item>
+      <title>iPhone手机连接Mac电脑时不断跳出信任弹窗的解决</title>
+      <link>https://yujinping.top/post/tools/how_to_disable_usbd/</link>
+      <pubDate>Thu, 01 Sep 2022 07:23:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/tools/how_to_disable_usbd/</guid>
+      <description>iPhone手机连接电脑时不断跳出信任弹窗的解决 由于苹果手机及电脑的安全机制，每次手机接到电脑的时候，都要用户进行授权。因此会有是否信任该电脑的弹窗。 一旦信任通过，在授权过期前则不会弹出该窗口。 然鹅，今天用新买的数据线连mac电脑时，手机上的弹窗不断的弹出，根本没法点击信任。因为</description>
+    </item>
+    
+    <item>
+      <title>使用maven运行jmeter测试脚本进行自动化接口测试-命令行传参</title>
+      <link>https://yujinping.top/post/test/maven_run_jmeter_tests3/</link>
+      <pubDate>Mon, 22 Aug 2022 20:37:15 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/test/maven_run_jmeter_tests3/</guid>
+      <description>需求 在执行jmeter测试的时候，有时候限于系统的原因，无法实现mock操作，那么就需要人工操作的介入。例如：用户下单购买时微信支付的操作或佣金结算等需要执行后台的结算任务等。因此，jmeter脚本内可能需要分阶段运行预期的阶段。 尝试解决这个办法，就是允许命令行携带参数覆盖原本j</description>
+    </item>
+    
+    <item>
+      <title>连接Docker内的Postgres数据库</title>
+      <link>https://yujinping.top/post/mysql/postgres_in_docker/</link>
+      <pubDate>Sun, 10 Jul 2022 22:45:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/mysql/postgres_in_docker/</guid>
+      <description>命令行 方式启动postgres in docker docker run --name postgres -e POSTGRES_PASSWORD=123456 -e POSTGRES_USER=postgres -e ALLOW_IP_RANGE=0.0.0.0/0 -p 5432:5432 -d postgres:14.4 注意事项 启动参数 -e ALLOW_IP_RANGE=0.0.0.0/0 必须加上，否则无法从容器外部访问该postgres实例 默认的postgres实例监听的是5432端口，最好通过端口映射到宿主机的方式进行 docker-compose 方式启动 postgre in docker</description>
+    </item>
+    
+    <item>
+      <title>使用 zap 替换 xorm 的日志系统</title>
+      <link>https://yujinping.top/post/go/replace_xorm_log_with_zap/</link>
+      <pubDate>Mon, 20 Jun 2022 17:22:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/go/replace_xorm_log_with_zap/</guid>
+      <description>使用 zap 替换 xorm 的日志系统 zap 是 uber 开发的快速日志。 使用 https://github.com/yxlimo/xormzap 这个简易的适配器即可 代码如下： log.go 工具类 package util import &amp;#34;go.uber.org/zap&amp;#34; var logger *zap.Logger func Log() *zap.Logger { if logger != nil { return logger } g, _ := zap.NewProduction() logger = g return logger } func L() *zap.SugaredLogger { if logger != nil { return logger.Sugar() } return Log().Sugar() } repo.go 基于 xorm 的简陋封装 package repo import ( &amp;#34;fmt&amp;#34; _ &amp;#34;github.com/go-sql-driver/mysql&amp;#34; &amp;#34;github.com/yxlimo/xormzap&amp;#34; &amp;#34;xorm.io/xorm&amp;#34; &amp;#34;xorm.io/xorm/names&amp;#34; &amp;#34;yujinping.top/pams/util&amp;#34; ) var engine *xorm.Engine func Repo() *xorm.Engine { if engine != nil { return engine } var err error username := &amp;#34;root&amp;#34; password := &amp;#34;&amp;#34; host := &amp;#34;localhost&amp;#34; port := 3306 database</description>
+    </item>
+    
+    <item>
+      <title>go交叉编译生成跨平台应用</title>
+      <link>https://yujinping.top/post/go/go_cross_platform_compile/</link>
+      <pubDate>Mon, 20 Jun 2022 12:22:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/go/go_cross_platform_compile/</guid>
+      <description>Go 交叉编译 Golang 支持交叉编译，可以在一个平台上编译生成另一个平台的可执行程序。 默认情况下，Go的runtime环境变量CGO_ENABLED=1，即默认开始cgo，允许你在Go代码中调用C代码 如果标准库中是在CGO_ENABLED=1情况下编译的，那么编译出来的最终二进制文件可能是动</description>
+    </item>
+    
+    <item>
+      <title>go使用embed嵌入静态资源</title>
+      <link>https://yujinping.top/post/go/go_embed_vue/</link>
+      <pubDate>Sun, 19 Jun 2022 22:22:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/go/go_embed_vue/</guid>
+      <description>第一步构建 vue project 可以创建一个简单的vue3 + vite 的项目。 编译时，需要将发布路径设置为 /public/ ,完成后，将 dist 文件夹移动到 go 项目的根文件夹。 嵌入资源文件 嵌入资源文件主要是使用 Go 1.16后增加的编译 //go:embed 预编译方式。 我使用的是 Go 1.18.3 版本。 修改 main.go package main import ( &amp;#34;embed&amp;#34; &amp;#34;io/fs&amp;#34; &amp;#34;net/http&amp;#34; ) // 注意 嵌入文件夹的时候，要使用 dist/** 形式告诉编</description>
+    </item>
+    
+    <item>
+      <title>go使用匿名结构体嵌入时警告</title>
+      <link>https://yujinping.top/post/go/composite_literal_uses_unkeyed_fields/</link>
+      <pubDate>Sun, 19 Jun 2022 18:22:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/go/composite_literal_uses_unkeyed_fields/</guid>
+      <description>现象 使用gin + jwt-go 做jwt验证的时候，写下如下结构体 type CustomClaims struct { Name string `json:&amp;#34;name&amp;#34;` UserId string `json:&amp;#34;userId&amp;#34;` // StandardClaims结构体实现了Claims接口(Valid()函数) jwt.StandardClaims } 初始化结构体 func (c *LoginController) generateToken(user entity.User) (string, error) { // 构造SignKey: 签名和解签名需要使用一个值 j := helper.NewJWT() // 构造用户claims信息(负荷) claims := helper.CustomClaims{ user.RealName,</description>
+    </item>
+    
+    <item>
+      <title>SpringBoot配置JSON格式的日志输出</title>
+      <link>https://yujinping.top/post/java/using_json_log_for_springboot/</link>
+      <pubDate>Wed, 15 Jun 2022 17:23:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/java/using_json_log_for_springboot/</guid>
+      <description>前言 当应用被拆分为N多个微服务时，当系统遇到问题，能够准确的查看日志就成了一个非常现实的问题。 原因是以容器方式运行的服务可能分布在不同的服务器上，至少十几个的微服务，甚至更多。同时由于也不太可能给到研发人员所有的相关服务器权限， 因此，需要一个集中的日志查看分析的系统，这个系统就是</description>
+    </item>
+    
+    <item>
+      <title>使用maven运行jmeter测试脚本进行自动化接口测试-进阶</title>
+      <link>https://yujinping.top/post/test/maven_run_jmeter_tests2/</link>
+      <pubDate>Wed, 08 Jun 2022 20:37:15 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/test/maven_run_jmeter_tests2/</guid>
+      <description>前言 承接上文 - 使用maven运行jmeter测试脚本进行自动化接口测试 本次主要增强了在自动化测试阶段的配置项，以及使用 jmeter gui 界面时的自动配置项。 使得gui 界面下与 非gui下自动测试的jmx脚本能够不做任何变更，即可在两种不同的环境下运行。使用gui界面更容易对脚本进行调试和测试。 检</description>
+    </item>
+    
+    <item>
+      <title>jmeter请求返回中文乱码的解决方案</title>
+      <link>https://yujinping.top/post/test/jmeter_charset/</link>
+      <pubDate>Wed, 08 Jun 2022 12:00:05 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/test/jmeter_charset/</guid>
+      <description>问题现象 搭建自动测试服务器时，发现使用jmeter 访问接口，其返回的内容中文会乱码。同样的接口使用postman进行测试，则呈现良好无乱码。服务器端接口返回的编码是utf-8编码。 显然，应该是jmeter 对返回内容的解析与服务器端返回的编码不一致导致的。推测，postman应该是</description>
+    </item>
+    
+    <item>
+      <title>在docker-compose中启动redis并设置密码</title>
+      <link>https://yujinping.top/post/docker/redis_with_password_in_docker_compose_file/</link>
+      <pubDate>Tue, 07 Jun 2022 12:32:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/docker/redis_with_password_in_docker_compose_file/</guid>
+      <description>docker-compose.yml redis: image: &amp;#34;redis:7.0.0-alpine&amp;#34; container_name: &amp;#34;redis&amp;#34; privileged: true ports: # docker容器redis默认端口号:6379 - &amp;#34;6379:6379&amp;#34; command: - redis-server - --requirepass - &amp;#34;your-password-here&amp;#34; 命令行方式 启动 docker 容器时携带参数 --requirepass your-password 即可</description>
+    </item>
+    
+    <item>
+      <title>MYSQL 8 上使用正则表达式获取字符串</title>
+      <link>https://yujinping.top/post/mysql/regexp_on_mysql8/</link>
+      <pubDate>Mon, 06 Jun 2022 12:23:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/mysql/regexp_on_mysql8/</guid>
+      <description>问题 使用 Nacos 进行微服务配置管理的时候，要构建新的 docker container 用来打包所有的微服务，并暴露所有的端口。由于微服务数量比较多，其端口分别配置在自己所属的配置文件内。因此手工处理的话，耗时且难于保证准确。因此直接使用 nacos 的数据库，通过 sql 的办法取出端口号，就成为一个更好的解决方案。 解决 打开 nacos 的配置数</description>
+    </item>
+    
+    <item>
+      <title>JMeter中如何自定义开发自己的插件</title>
+      <link>https://yujinping.top/post/test/jmeter_notes_on_extending_txt/</link>
+      <pubDate>Mon, 23 May 2022 07:30:05 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/test/jmeter_notes_on_extending_txt/</guid>
+      <description>参考 JMeter 文档中的 notes_on_extending.txt Making a TestBean Plugin For JMeter This component will be a CSV file reading element that will let users easily vary their input data using csv files. Pick a package and make three files: [ComponentName].java (org.apache.jmeter.config.CSVDataSet.java) [ComponentName]BeanInfo.java (org.apache.jmeter.config.CSVDataSetBeanInfo.java) [ComponentName]Resources.properties (org.apache.jmeter.config.CSVDataSetResources.properties) CSVDataSet.java must implement the TestBean interface. In addition, it will extend ConfigTestElement, and implement LoopIterationListener. - TestBean is a marker interface, so there are no methods to implement. - Extending ConfigTestElement will make our component a Config element in a test plan. By extending different abstract classes, you can control the type of element your component will be (ie AbstractSampler, AbstractVisualizer, GenericController, etc - though you can also make different types of elements just by instantiating the right interfaces, the abstract classes can make your life easier). CSVDataSetBeanInfo.java should extend org.apache.jmeter.testbeans.BeanInfoSupport create</description>
+    </item>
+    
+    <item>
+      <title>windows平台JMeter使用自开发的自动同步禅道测试用例的后置监听器在easyVPN下无法连接到mysql数据库的问题</title>
+      <link>https://yujinping.top/post/test/jmeter_plugin_mysql_under_vpn/</link>
+      <pubDate>Mon, 23 May 2022 07:30:05 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/test/jmeter_plugin_mysql_under_vpn/</guid>
+      <description>问题背景 在个人的 Mac Book Pro 上面,开启了 easyVPN 后，运行带有自开发的禅道用例测试结果同步后端监听器的 JMeter 时，是可以正常连接到禅道的测试数据库的。 但是在 windows 10 及以上版本，同样的开启了 easyVPN 后，运行则无法连接到数据库。一直提示 com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure 初步分析，以为是不同 VPN 账号的权限问题。可是用自己的 vpn 账号登录到 wind</description>
+    </item>
+    
+    <item>
+      <title>使用influxdb&#43;grafana&#43;jmeter生成可视化测试报告</title>
+      <link>https://yujinping.top/post/test/using_influxdb_grafana_jmeter_report/</link>
+      <pubDate>Fri, 13 May 2022 23:23:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/test/using_influxdb_grafana_jmeter_report/</guid>
+      <description>参考https://zhuanlan.zhihu.com/p/110154333 配置 jmeter influxdbUrl ：http://localhost:8086/write?db=jmeter 如果你的 jmeter 也是在 docker 中运行的话，使用 http://host.docker.internal:8086/write?db=jmeter #host 写安装 influxdb 服务的 ip 地址+端口,如修改填写修改后的端口 db 创建数据库：jmeter application</description>
+    </item>
+    
+    <item>
+      <title>Docker容器间的通信</title>
+      <link>https://yujinping.top/post/docker/docker_container_-communication/</link>
+      <pubDate>Sat, 07 May 2022 10:10:00 +0000</pubDate>
+      
+      <guid>https://yujinping.top/post/docker/docker_container_-communication/</guid>
+      <description>参考 https://www.jianshu.com/p/3e1272357935</description>
+    </item>
+    
+    <item>
+      <title>使用docker&#43;caddy搭建https站点的compose配置</title>
+      <link>https://yujinping.top/post/docker/docker_compose_with_https_caddy/</link>
+      <pubDate>Sat, 07 May 2022 10:10:00 +0000</pubDate>
+      
+      <guid>https://yujinping.top/post/docker/docker_compose_with_https_caddy/</guid>
+      <description>version: &amp;#34;3.7&amp;#34; services: # http/2 server caddy: image: caddy:2.4.6-alpine container_name: caddy restart: unless-stopped network_mode: &amp;#34;host&amp;#34; environment: - TZ=Asia/Shanghai - agree - email=87418455@qq.com volumes: - &amp;#34;~/docker/caddy/conf/Caddyfile:/etc/Caddyfile&amp;#34; - &amp;#34;~/docker/caddy/.caddy:/root/.caddy&amp;#34; - &amp;#34;~/docker/caddy/logs:/opt/logs&amp;#34; - &amp;#34;~/docker/caddy/www:/opt/www&amp;#34; ports: - 80:80 - 443:443</description>
+    </item>
+    
+    <item>
+      <title>MYSQL 8 修改用户认证方式及密码</title>
+      <link>https://yujinping.top/post/mysql/mysql8_password_manage/</link>
+      <pubDate>Tue, 03 May 2022 18:23:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/mysql/mysql8_password_manage/</guid>
+      <description>MYSQL8 的新认证方式 在 MySQL8.0 版本之前，MySQL 使用的加密方式是mysql_native_password。在 MySQL8.0 之后，加密的方式改为caching_sha2_password，从字面意思理解，后者的加密方式应该更高效，以便提升客户端的连接速度。 MYSQL 8 修改用户的密码 由于部分客户端对 mysql8 的新认证方</description>
+    </item>
+    
+    <item>
+      <title>Mac上解压rar文件的工具</title>
+      <link>https://yujinping.top/post/tools/rar_tools_on_mac_os/</link>
+      <pubDate>Wed, 27 Apr 2022 21:40:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/tools/rar_tools_on_mac_os/</guid>
+      <description>图形界面的 The Unarchive 在 mac os 的 AppStore 搜索 Unarchive 即可。 官方的命令行工具 rar/unrar (试用版) 下载命令行工具包https://www.rarlab.com，只有 600K 左右。 双击即可直接解压，或生成一个 rar 的文件夹 使用 iTerm2 进入该文件夹命令行窗口，安装 rar 和 unrar 这两个命令： # 安装 rar 压缩命令 sudo install -c -o $USER rar /usr/local/bin/ # 安装 unrar 解压缩命令 sudo install</description>
+    </item>
+    
+    <item>
+      <title>使用maven运行jmeter测试脚本进行自动化接口测试</title>
+      <link>https://yujinping.top/post/test/maven_run_jmeter_tests/</link>
+      <pubDate>Wed, 27 Apr 2022 20:37:15 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/test/maven_run_jmeter_tests/</guid>
+      <description>准备工作 假设你已经下载并安装好如下软件： java8 maven IDEA 使用 idea 创建 maven 项目工程 添加 jmeter 测试脚本 在 src/test文件夹内创建jmeter文件夹用于存放 jmeter 测试脚本。可以使用子文件夹，无需将 jmeter 这个文件夹的类型设置为 test。 修改 pom.xml 添加 jmeter 插件 （重点） maven 集成 jmeter-maven-plugin 可以运行自动化测试。 &amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt; &amp;lt;project xmlns=&amp;#34;http://maven.apache.org/POM/4.0.0&amp;#34; xmlns:xsi=&amp;#34;http://www.w3.org/2001/XMLSchema-instance&amp;#34; xsi:schemaLocation=&amp;#34;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&amp;#34;&amp;gt; &amp;lt;modelVersion&amp;gt;4.0.0&amp;lt;/modelVersion&amp;gt; &amp;lt;groupId&amp;gt;org.example&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;jxyx-app-testing&amp;lt;/artifactId&amp;gt;</description>
+    </item>
+    
+    <item>
+      <title>关于自动化接口测试及过程管理的思考</title>
+      <link>https://yujinping.top/post/think/how_to_mange_testing/</link>
+      <pubDate>Sun, 24 Apr 2022 10:10:00 +0000</pubDate>
+      
+      <guid>https://yujinping.top/post/think/how_to_mange_testing/</guid>
+      <description>关于自动化接口测试及过程管理的思考 对接口自动化需要讨论的一些内容： 根据生产环境（或测试环境）导出一份 sql dump 的数据，业务持续发展时测试数据基准如何跟进(即自动测试的数据库的结构与数据始终保持到最新，或有其他更好的策略)？ docker mysql 数据直接存放在容器内（一次性，下次新启动则是原始数据），还是</description>
+    </item>
+    
+    <item>
+      <title>如何在docker内部连接宿主机的MYSQL</title>
+      <link>https://yujinping.top/post/docker/access_host_mysql_from_docker_container/</link>
+      <pubDate>Sun, 24 Apr 2022 10:10:00 +0000</pubDate>
+      
+      <guid>https://yujinping.top/post/docker/access_host_mysql_from_docker_container/</guid>
+      <description>windows/mac 平台连接方式 windows 和 mac 都是通过host.docker.internal去连接宿主机。 当你启动了一个 docker web 服务，需要修改 docker web 使用的 mysql 地址，将 localhost 改成 host.docker.internal 即可。 linux 平台连接方式 通过获取 docker 内部的网关获取到宿主机的 ip： docker inspect &amp;lt;container-id-or-name&amp;gt; | grep Gateway &amp;#34;Gateway&amp;#34;: &amp;#34;&amp;#34;, &amp;#34;IPv6Gateway&amp;#34;: &amp;#34;&amp;#34;, &amp;#34;Gateway&amp;#34;: &amp;#34;172.18.0.1&amp;#34;, &amp;#34;IPv6Gateway&amp;#34;: &amp;#34;&amp;#34;, 对于本例中 docker 应用程序使用的 MySQL 指向宿主机的 172.18.0.1:3306</description>
+    </item>
+    
+    <item>
+      <title>投资系列（1）-牛眼投资法</title>
+      <link>https://yujinping.top/post/book/stock_books/</link>
+      <pubDate>Tue, 19 Apr 2022 23:02:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/book/stock_books/</guid>
+      <description>投资书籍 牛眼投资法 书中重要的观点： 席勒的研究表明，收益和股价之间没有相关性：股价由情绪主宰。 市盈率越高，那么股市的回报就越低（以年为单位的长期） 例如本章的部分论述及观点： 在熊市中，投资者会逐渐对股市指数没有增长感到厌倦和绝望，然后开始寻找其他投资机会。 由牛市到熊市的股市调整，一般</description>
+    </item>
+    
+    <item>
+      <title>go泛型简化数据库读取操作</title>
+      <link>https://yujinping.top/post/go/go_generic/</link>
+      <pubDate>Thu, 14 Apr 2022 19:12:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/go/go_generic/</guid>
+      <description>前提 go 语言已经发布了 1.18 带有正式泛型的版本，但很多文章都仍旧只是限于官方的 Add(数学加减法) 泛型函数例子。因此本文尝试使用泛型来简化数据库操作这一个过程，深入了解及使用这个新版的泛型。当然其中的实现都以简单为主，当做使用泛型的可用例子。 注意本文使用 gorm 作为基础的数据库访问工具，当然</description>
+    </item>
+    
+    <item>
+      <title>swagger定义的api自动生成jmeter测试脚本jmx</title>
+      <link>https://yujinping.top/post/test/convert_swagger_api_to_jmeter_jmx/</link>
+      <pubDate>Thu, 14 Apr 2022 19:00:05 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/test/convert_swagger_api_to_jmeter_jmx/</guid>
+      <description>准备工作 我们使用openapi-generator-cli这个工具用做 swagger api 转化 jmeter jmx 的工具。 该工具的文档地址：https://openapi-generator.tech/docs/installation/#jar 下载安装 OpenApiGenerator OpenAPI Generator 可用于在给定 OpenAPI 规范（v2, v3）的情况下自动生成 API 客</description>
+    </item>
+    
+    <item>
+      <title>使用jmeter命令行动态传递参数进行自动化测试</title>
+      <link>https://yujinping.top/post/test/using_jmeter_vars/</link>
+      <pubDate>Thu, 14 Apr 2022 07:23:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/test/using_jmeter_vars/</guid>
+      <description>需求 对于使用 jmeter 进行接口测试来说，使用 GUI 方式只能是手工测试，而无法与 Jenkins 等集成为自动化测试。 例如：我们要对于用户登录接口进行测试，可能部署环境有 2 个，测试环境和预发环境。假设测试环境域名 host=test.localhost.com,预发环境域名 host=pre.localhost.com 那么测试的接口地址，就不可能是静态固</description>
+    </item>
+    
+    <item>
+      <title>go web 接口返回time.Time类型数据的格式化</title>
+      <link>https://yujinping.top/post/go/go_time_json_format/</link>
+      <pubDate>Sat, 09 Apr 2022 13:05:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/go/go_time_json_format/</guid>
+      <description>使用自定义类型并重写 JSON 序列化和反序列化的方法 Go Web 接口结构体 type User struct { Id uint64 `json:&amp;#34;id&amp;#34;` Username string `json:&amp;#34;username&amp;#34;` Password string `json:&amp;#34;password&amp;#34;` CreateTime time.Time `json:&amp;#34;createTime&amp;#34;` } 接口输出 createTime 字段的时候其格式并不符合我们的习惯。可以使用类型别名的方式重写 JSON 的两个方法： MarshalJSON() ([]byte, error) UnmarshalJSON(data []byte) error package types import ( &amp;#34;fmt&amp;#34; &amp;#34;time&amp;#34; ) type DateTime time.Time func (d DateTime) MarshalJSON() ([]byte, error) { // 重写time转换成json之后的格式 var str = fmt.Sprintf(&amp;#34;\&amp;#34;%s\&amp;#34;&amp;#34;, time.Time(d).Format(&amp;#34;2006-01-02T15:04:05&amp;#34;)) return []byte(str), nil }</description>
+    </item>
+    
+    <item>
+      <title>go使用各种orm时无法映射time.Time类型的解决方案</title>
+      <link>https://yujinping.top/post/go/go_scan_time_error/</link>
+      <pubDate>Sat, 09 Apr 2022 12:35:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/go/go_scan_time_error/</guid>
+      <description>问题现象 无论是使用各种 ORM 工具（sqlx,xorm,gorm 等）访问 MySQL 时，当将记录集映射为结构体的时候，当结构体中有属性类型是time.Time 的时候，总是报unsupported Scan, storing driver.Value type []uint8 into type *time.Time 的错误，并且结构体中的 time.Time 类型字段被设置为默认零值。 解决方案 解决方法是使用 MySQL 驱动程序自带</description>
+    </item>
+    
+    <item>
+      <title>docker desktop for mac is stopped!</title>
+      <link>https://yujinping.top/post/docker/docker_desktop_mac_is_stopped/</link>
+      <pubDate>Thu, 07 Apr 2022 23:32:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/docker/docker_desktop_mac_is_stopped/</guid>
+      <description>问题 最近将 docker desktop for mac 升级到最新的版本后，竟然再也无法启动。无论是卸载重装什么的都没用。 看网上说是版本问题。要降级到旧版。结果 docker 站的旧版下载地址好难找。 解决 在 docker 的文档docker desktop for mac 安装指南网页的左侧菜单找到 【Previous versions】 点开后,点击【desktop for mac 3.x</description>
+    </item>
+    
+    <item>
+      <title>MYSQL 8 修改最大连接数</title>
+      <link>https://yujinping.top/post/mysql/mysql_max_connection/</link>
+      <pubDate>Thu, 07 Apr 2022 22:45:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/mysql/mysql_max_connection/</guid>
+      <description>对于 mysql8 数据库设置其最大连接数，通常使用的是 max_connection。 查看设置 可以使用如下 sql 查询全局变量的设定： show variables like &amp;#39;%max_connections%&amp;#39;; 得到查询结果：（如下图所示） max_connections 这个就是通常的最大连接数； mysqlx_max_connections 这个则是指当数据库安装了各种插件（例如审计插件、查询代理插件、主从插件等）后插件能够接收的最大连接数</description>
+    </item>
+    
+    <item>
+      <title>使用jmeter抓取API请求并进行多用户多并发压力测试</title>
+      <link>https://yujinping.top/post/test/jmeter/</link>
+      <pubDate>Fri, 01 Apr 2022 21:22:15 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/test/jmeter/</guid>
+      <description>我的环境 软件版本: 安装 jmeter 的最新版本，当前是 5.4.3，使用简体中文界面 操作系统: MacOs Monterey 12.3.1，ios 15.3.1 运行环境: Java 8 抓取 APP 的 https 请求 手机端安装 JMeter 证书 在使用 JMeter 抓取 APP 的 https 请求的时候，由于 ios 的安全限制比较严格，因此将 JMeter 设置为网络代理的时候，必须要安装并信任 JMeter 提供的认证证书。 位于 %JM</description>
+    </item>
+    
+    <item>
+      <title>使用 docker &#43;gitea &#43; jenkins 进行自动化持续集成</title>
+      <link>https://yujinping.top/post/tools/using_jenkins_with_docker_agent_ci_with_gitea/</link>
+      <pubDate>Fri, 18 Mar 2022 20:02:05 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/tools/using_jenkins_with_docker_agent_ci_with_gitea/</guid>
+      <description>环境说明 本例使用 docker-compose 进行。 假设你已经安装 docker 以及 docker-compose 的最新版,并使用的是 linux 服务器。 下载 gitea 及 jenkins 镜像 docker pull gitea/gitea:1.16.4 docker pull jenkinsci/blueocean 编写 compose 采用分别为 gitea 和 jenkins 编写 docker-compose.yml 文件的形式。 gitea 的 docker-compose.yml 内容: version: &amp;#34;3&amp;#34; networks: gitea: external: false volumes: gitea: driver: local services: server: image: gitea/gitea:1.16.4 container_name: gitea environment: - USER_UID=1000 - USER_GID=1000 restart: always networks: - gitea volumes: - gitea:/data - /etc/timezone:/etc/timezone:ro - /etc/localtime:/etc/localtime:ro ports: - &amp;#34;3000:3000&amp;#34; jenkins 的 docker-compose.yml 内容: version: &amp;#34;3&amp;#34; networks: jenkins: external: false volumes: jenkins: driver: local services: server: #image: jenkins/jenkins:alpine-jdk11 image: jenkinsci/blueocean container_name: jenkins # privileged 是</description>
+    </item>
+    
+    <item>
+      <title>使用postman抓取API请求为自动化测试准备</title>
+      <link>https://yujinping.top/post/test/capture_request_and_convert_to_postman_collection/</link>
+      <pubDate>Thu, 17 Mar 2022 18:22:05 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/test/capture_request_and_convert_to_postman_collection/</guid>
+      <description>前置条件 请确保你的手机和 postman 所在电脑处于同一个 WIFI 网络。 启用 postman 代理 首先在启动后的 postman 的主界面的右下角点击【Capture Requests】,进入如下界面： 勾选 Save Response for Requests. 选择 Save requests to a collection. 到一个新创建的 collection. 在 URL must contain.填写仅过滤关心的请求。 点击【Enable Proxy】设置代理： 设置完</description>
+    </item>
+    
+    <item>
+      <title>使用postman2jmx将postman测试集转化为JMeter的压测脚本</title>
+      <link>https://yujinping.top/post/test/convert_postman_collection_to_jmeter_jmx/</link>
+      <pubDate>Thu, 17 Mar 2022 12:02:05 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/test/convert_postman_collection_to_jmeter_jmx/</guid>
+      <description>说明 由于 postman 的方便特性，因此接口测试基本上都以 PostMan 为主要工具。 但是涉及到性能测试时，PostMan 提供的功能比较弱。尽管 PostMan 有能够定义多次循环及间隔时间的测试，但仍旧没有多并发测试的支持。 故而，多并发测试仍旧要依赖其他第三方工具。比如老牌的测试及压测工具 JMeter。 习惯了 PostMan 方便的编写</description>
+    </item>
+    
+    <item>
+      <title>接口测试辅助工具sql2json使用说明书</title>
+      <link>https://yujinping.top/post/test/sql2json_docment/</link>
+      <pubDate>Wed, 16 Mar 2022 18:23:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/test/sql2json_docment/</guid>
+      <description>sql2json 使用 go 开发的本地 WEB 服务器，允许将 sql 语句执行结果转换为 json 输出。 可以用于 PostMan 等测试软件测试接口时的数据校验，要求测试人员会编写相应的 SQL 语句。 支持 windows、Linux、Mac 等主流操作系统。 以下以 Mac 版本的命令行版本进行说明，实际使用的时候请根据操作系统使用合适的可执行文件。 下载地</description>
+    </item>
+    
+    <item>
+      <title>Mac/Linux 递归删除指定名称的文件夹</title>
+      <link>https://yujinping.top/post/tools/batch_delete_folders_on_linux/</link>
+      <pubDate>Mon, 14 Mar 2022 21:23:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/tools/batch_delete_folders_on_linux/</guid>
+      <description>Mac/Linux 递归删除指定名称的文件夹 切换到要删除的目录： 例如: cd .m2 递归删除所有名称为“unknown”的文件夹 find . -name &amp;#39;unknown&amp;#39; -type d | xargs rm -rf</description>
+    </item>
+    
+    <item>
+      <title>Mac/Linux 递归删除指定名称的文件夹</title>
+      <link>https://yujinping.top/post/tools/zentao_docker_config/</link>
+      <pubDate>Mon, 14 Mar 2022 21:23:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/tools/zentao_docker_config/</guid>
+      <description>docker network create zentaonet docker run --name zentao -p 80:80 --network=zentaonet --privileged=true -v /Users/yujinping/tmp/zentao/zentaopms:/www/zentaopms -v /Users/yujinping/tmp/zentao/mysqldata:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 easysoft/zentao:18.2</description>
+    </item>
+    
+    <item>
+      <title>SSH 服务器免密登录快速配置</title>
+      <link>https://yujinping.top/post/tools/ssh_quick_login_without_password/</link>
+      <pubDate>Sat, 12 Mar 2022 20:22:05 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/tools/ssh_quick_login_without_password/</guid>
+      <description>使用 ssh-keygen 生成公钥和私钥 执行如下命令生成免密登录钥匙 cd ~ ~/ssh-keygen 命令执行过程中的交互直接三个回车即可 将 ssh 公钥复制到目标服务器 执行如下命令: # 默认端口 22 ssh-copy-id -i .ssh/id_rsa.pub root@192.168.0.102 # 指定端口 59022 ssh-copy-id -i .ssh/id_rsa.pub -p 59022 root@192.168.0.103 检测免密登录 执行如下命令: # 免密登录成功则意味着上述设置生效 ssh root@192.168.0.102 ssh -p 59022 root@192.168.0.103</description>
+    </item>
+    
+    <item>
+      <title>使用newman&#43;postman进行自动化测试的环境搭建</title>
+      <link>https://yujinping.top/post/test/newman_postman_auto_test/</link>
+      <pubDate>Sat, 12 Mar 2022 19:32:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/test/newman_postman_auto_test/</guid>
+      <description>使用 newman+postman 进行自动化测试的环境搭建 安装与配置 本地安装 postman 最新版本 https://www.postman.com/downloads/ 本地安装 nodejs 的最新 LTS 版本 https://nodejs.org 在 windows 命令行（powershell)下，执行 : node -v 看是否安装成功及命令行是否可用 在命令行下执行 npm install newman -global 或使用 yarn 包管理器 yarn add newman -g 安装后在命令行执行 newman -v 看是否安装成功。（如不行，可尝试开一个新的命令行窗</description>
+    </item>
+    
+    <item>
+      <title>FreeMarker 数字输出中的逗号问题</title>
+      <link>https://yujinping.top/post/java/freemarker_number_format/</link>
+      <pubDate>Sun, 06 Mar 2022 18:23:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/java/freemarker_number_format/</guid>
+      <description>FreeMarker 数字输出中的逗号问题，两种解决方案 FreeMarker 显示数字的时候，比如 ${post.postId} 文章 Id 为 9183，FreeMarker 默认显示为 9,183，在超链接的里就会报错。 解决办法有两种 方法一、 在表达式后面加 ?c ，默认不加会以，分隔 ${post.postId?c} 方法二、 直接在配置文件(application.yml)中加 number_format=0 spring: freemarker: settings: number_format: 0 这个方</description>
+    </item>
+    
+    <item>
+      <title>Linux 保持 SSH 连接时间设置</title>
+      <link>https://yujinping.top/post/tools/ssh_keep_alive/</link>
+      <pubDate>Wed, 12 Jan 2022 07:23:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/tools/ssh_keep_alive/</guid>
+      <description>Linux 保持 SSH 连接时间设置 前言 连接 SSH 服务器刚刚离开一会就断开，不得不需要反复连接服务器，为了使 SSH 服务器可以保持足够的连接时间，大家可以按以下方法设置: 基于安全的理由，如果用户连线到 SSH Server 后闲置，SSH Server 会在超过特定时间后自动终止 SSH 连线。 解决方案 修改 server 端的 etc/ssh/sshd_config ＃server每隔X秒发送一次请</description>
+    </item>
+    
+    <item>
+      <title>使用PostMan测试你的REST API接口</title>
+      <link>https://yujinping.top/post/test/using_post_man_to_test_rest_api/</link>
+      <pubDate>Tue, 02 Nov 2021 20:32:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/test/using_post_man_to_test_rest_api/</guid>
+      <description>下载安装 PostMan 对于服务端 API 开发人员而言，首先需要保证开发出的 API 通过一定的测试。那么简便的方式就是使用 PostMan 了。 传送门: [PostMan](https://getpostman.com) 本次使用的 PostMan 版本是 Mac 下的 9.1.3。 创建请求集合或单个请求 对于创建测试合集和单个测试请求，不在本次讲述之内，假定你已经熟悉了创建单个测试请求。 好了，看看单个请求如何对 REST</description>
+    </item>
+    
+    <item>
+      <title>brew 安装软件提示Unknown command: cask 的问题</title>
+      <link>https://yujinping.top/post/tools/brew_with_unkown_cask/</link>
+      <pubDate>Fri, 22 Oct 2021 07:32:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/tools/brew_with_unkown_cask/</guid>
+      <description>对于使用 mac book 的笔记本电脑人士而言，brew是一个非常常用的软件包管理工具。 但网上不少教程都比较陈旧，这不 cask命令模式的更改，N 多文章都仍旧是采用旧的错误模式。 新版本将 cask 的命令形式从 brew cask install app 变更为 brew install --cask app 的方式 从而导致执行旧的命令的时候会提示 Unknown command: cask 因此 请使用新的命令形式: brew install --cask</description>
+    </item>
+    
+    <item>
+      <title>go使用条件编译的形式集成swagger</title>
+      <link>https://yujinping.top/post/go/gin_with_swagger/</link>
+      <pubDate>Thu, 21 Oct 2021 18:22:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/go/gin_with_swagger/</guid>
+      <description>安装 swag-go 的依赖 首先在项目根目录安装 swag-go 的依赖： go install github.com/go-openapi/swag 并在项目根目录执行生成 swagger 文档命令 swag init 在 routers 包内创建 swagger.go: //go:build doc // +build doc /** * 注意条件编译注释 //go:build doc 只能出现在代码文件的最顶部(这是Go 1.17的新的条件编译语法),不建议再使用//+build doc 旧的条件编译语法 */ package routers import ( \_ &amp;#34;demo/docs&amp;#34; swaggerFiles &amp;#34;github.com/swaggo/files&amp;#34; ginSwagger &amp;#34;github.com/swaggo/gin-swagger&amp;#34; ) func init() { swagHandler = ginSwagger.WrapHandler(swaggerFiles.Handler)</description>
+    </item>
+    
+    <item>
+      <title>Electron 集成 Vue &amp; Vuetify 开发应用</title>
+      <link>https://yujinping.top/post/vue/electron-vue-starter/</link>
+      <pubDate>Sat, 06 Mar 2021 18:23:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/vue/electron-vue-starter/</guid>
+      <description>Electron 集成 Vue &amp;amp; Vuetify 开发应用 由于electron能够用 Nodejs 编写跨平台系统的应用软件，目标系统包括 windows、MacOs、Linux 这三大主流操作系统，因此能够省去大量的跨端开发工作。更因为能够重用 Vue 组件，因此可以编写出与 WEB 端媲美的漂亮界面，而且组件的重用更是大大的提高了开发的效率。 VS code</description>
+    </item>
+    
+    <item>
+      <title>Vue开发设置使用淘宝镜像</title>
+      <link>https://yujinping.top/post/vue/yarn_registry/</link>
+      <pubDate>Tue, 16 Feb 2021 18:23:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/vue/yarn_registry/</guid>
+      <description>Vue 开发设置使用淘宝镜像 yarn 设置 对于国内的前端开发来说，经常会依赖大量的 npm 包，使用国内淘宝的镜像下载时会更加快速，强烈推荐使用！ yarn 是 FaceBook 推出的包管理器，相对于 npm 来说做了很多改进，更快速和稳定，我一直在使用它。 1.查询当前配置的镜像 yarn config get registry 设置成淘宝镜像 yarn config set registry http://registry.npm.taobao.org/</description>
+    </item>
+    
+    <item>
+      <title>webpack 自定义别名后，VScode 路径提示问题</title>
+      <link>https://yujinping.top/post/vue/vue_webpack_path_alias_intelligent/</link>
+      <pubDate>Tue, 16 Feb 2021 18:23:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/vue/vue_webpack_path_alias_intelligent/</guid>
+      <description>webpack 自定义别名后，VScode 路径提示问题 问： 用@vue/cli 3 创建的项目，配置了自定义别名。例如&amp;quot;@/xxx&amp;quot;，配置完后 VScode 没有代码提示了。 VScode 是装了插件的，用相对路径有提示，如&amp;quot;./xxx&amp;quot;时是有路径提示。 答： 可以在项目的根目录下创建 tsconfig.json 或者</description>
+    </item>
+    
+    <item>
+      <title>使用 Node 运行 ES6 模块</title>
+      <link>https://yujinping.top/post/vue/using_node_run_es6_module/</link>
+      <pubDate>Tue, 16 Feb 2021 18:23:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/vue/using_node_run_es6_module/</guid>
+      <description>使用 Node 运行 ES6 模块 由于 Node 的模块组织方式和 ES6 的模块组织方式不同，因此 ES6 的模块导入和导出语法在 Node 命令行程序执行下会报错 另外，某些 ES6 关键字的用法亦不兼容，因此需要使用 Babel 进行转换后执行 比如: 有个 ES6 写的 logger.js 直接上代码： const Level = { DEBUG: 1, INFO: 2, ERROR: 3, NONE: 4, }; class Logger { constructor(level) { this.level = level || Level.INFO; } } // 执行默认构造行数并打印 const</description>
+    </item>
+    
+    <item>
+      <title>使用parcel的watch整合单页应用和JAVA WEB</title>
+      <link>https://yujinping.top/post/vue/using_parcel_watch_integration_with_java_web/</link>
+      <pubDate>Tue, 16 Feb 2021 18:23:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/vue/using_parcel_watch_integration_with_java_web/</guid>
+      <description>使用 parcel 的 watch 整合单页应用和 JAVA WEB 由于通常情况下使用 NODE 进行前端开发时，会启动相应的应用服务器。而使用 JAVA WEB 开发时也有相应的应用服务器要启动。这在本机开发时要通过 Proxy 的方式进行整合。 如果不需要那么多麻烦的整合就好了，本着能省就省的方式。既然 JAVA WEB 的应用服务器必须要启用，那可否直接利用 JAVA 的应用服</description>
+    </item>
+    
+    <item>
+      <title>非 WEB 环境下运行 SpringBootApplication</title>
+      <link>https://yujinping.top/post/java/springboot_with_none_web_application/</link>
+      <pubDate>Mon, 25 Jan 2021 18:23:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/java/springboot_with_none_web_application/</guid>
+      <description>非 WEB 环境下运行 SpringBootApplication 前言 有时候一些项目并不需要提供 Web 服务，例如跑定时任务的项目等。因为启动一个 Tomcat 这样的 WEB 服务器容器也比较消耗资源，浪费内存及算力。 非 WEB 项目可以修改 maven 依赖为: &amp;lt;dependencies&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-boot-starter&amp;lt;/artifactId&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;/dependencies&amp;gt; 当然，不修改也是没有问题的，可以仍旧依赖： &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-boot-starter-web&amp;lt;/artifactId&amp;gt; &amp;lt;/dependency&amp;gt; 首次尝试 不过 SpringBoot 的启动类的 main 方法需要做一些改变 package com.sample.api; import</description>
+    </item>
+    
+    <item>
+      <title>使用 mvn 进行 springboot 2.2.5&#43;mybatis-plus 3.3 开发</title>
+      <link>https://yujinping.top/post/java/springboot_with_mybatis_plus_mvn/</link>
+      <pubDate>Sun, 24 Jan 2021 18:23:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/java/springboot_with_mybatis_plus_mvn/</guid>
+      <description>使用 mvn 进行 springboot 2.2.5+mybatis-plus 3.3 开发 使用 https://start.spring.io 生成新项目框架 数据源配置 /resources/application.properties spring.datasource.username=root spring.datasource.password= spring.datasource.url = jdbc:mysql://127.0.0.1:3306/hotel spring.datasource.driverClassName = com.mysql.cj.jdbc.Driver spring.datasource.type = com.zaxxer.hikari.HikariDataSource 主启动文件 import org.mybatis.spring.annotation.MapperScan; import org.springframework.boot.SpringApplication; import org.springframework.boot.autoconfigure.SpringBootApplication; import org.springframework.cache.annotation.EnableCaching; import org.springframework.transaction.annotation.EnableTransactionManagement; @SpringBootApplication @EnableTransactionManagement @EnableCaching @MapperScan(&amp;#34;com.localhost.mapper&amp;#34;) public class ApiApplication { public static void main(String[] args) { SpringApplication.run(ApiApplication.class, args); } } 当启动时报错如下时 org.apache.ibatis.binding.BindingException: Invalid bound statement (not found) 原因是标准的 mvn 项目不会将位于 src/main/java 下的 Mapper.xml 文件进行编译，即在 target/classes 下无法找到对应的 Mapper.xml 文件，因此请将 mvn 的 pom.xml 增加如下内容 &amp;lt;build&amp;gt; &amp;lt;resources&amp;gt;</description>
+    </item>
+    
+    <item>
+      <title>整合 spring-boot 和 mybatis-plus 进行 Api 开发</title>
+      <link>https://yujinping.top/post/java/springboot_with_mybatis_plus_gradle/</link>
+      <pubDate>Sat, 23 Jan 2021 18:23:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/java/springboot_with_mybatis_plus_gradle/</guid>
+      <description>整合 spring-boot 和 mybatis-plus 进行 Api 开发 使用 idea 社区版作为开发工具，gradle 作为构建工具 主要配置： 首先使用 SpringBoot 初始化项目进行项目模版配置,选择 web ,mysql,lombok 即可 build.gradle 配置 plugins { id &amp;#39;org.springframework.boot&amp;#39; version &amp;#39;2.1.6.RELEASE&amp;#39; id &amp;#39;java&amp;#39; id &amp;#39;war&amp;#39; } apply plugin: &amp;#39;io.spring.dependency-management&amp;#39; group = &amp;#39;io.github.joy.fxz&amp;#39; version = &amp;#39;0.0.2&amp;#39; sourceCompatibility = &amp;#39;1.8&amp;#39; repositories { mavenCentral() } dependencies { implementation &amp;#39;org.springframework.boot:spring-boot-starter-web&amp;#39; // 无需添加mybatis的依赖，防止与mybatis-plus整合的版本不一致 implementation &amp;#39;com.baomidou:mybatis-plus-boot-starter:3.1.2&amp;#39;</description>
+    </item>
+    
+    <item>
+      <title>使用 junit 对 springboot 应用进行单元测试</title>
+      <link>https://yujinping.top/post/java/springboot_with_junit_test/</link>
+      <pubDate>Thu, 21 Jan 2021 18:23:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/java/springboot_with_junit_test/</guid>
+      <description>使用 junit 对 springboot 应用进行单元测试 使用 springboot 2.2.5 开发 web 应用的时候，需要进行单元测试。 普通的 java 的单元测试比较简单，对于采用 REST 方式开发的微服务，则需要使用 WEB 环境进行测试。 示例代码如下： package com.sample.api; import com.sample.api.controller.TestController; import com.sample.api.entity.User; import org.junit.Assert; import org.junit.Test; import org.junit.runner.RunWith; import org.springframework.boot.test.context.SpringBootTest; import org.springframework.boot.test.web.client.TestRestTemplate; import org.springframework.test.context.junit4.SpringRunner; import javax.annotation.Resource; @RunWith(SpringRunner.class) @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT) public class TestControllerTest { @Resource private TestRestTemplate restTemplate; @Test public void test(){ User user = restTemplate.getForObject(&amp;#34;/users/abc&amp;#34;, User.class); System.out.println(user); Assert.assertNotNull(user); Assert.assertEquals(&amp;#34;abc&amp;#34;, user.getUsername()); } } 需要注意的是对于 SpringBoot 里</description>
+    </item>
+    
+    <item>
+      <title>Vue单页项目发布到Nginx独立目录</title>
+      <link>https://yujinping.top/post/vue/publish_vue_spa_application_to_nginx/</link>
+      <pubDate>Tue, 12 Jan 2021 18:23:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/vue/publish_vue_spa_application_to_nginx/</guid>
+      <description>Vue 单页项目发布到 Nginx 独立目录 Nginx 配置 对于 Nginx 的配置与原来 Nginx 和 Tomcat 搭配配置完全一样，无需任何改动。例如： server { listen 80; # listen somename:8080; charset utf-8; server_name localhost; gzip on; location / { proxy_pass http://localhost:8080/; proxy_redirect off; proxy_set_header X-Real-IP $remote_addr; proxy_set_header REMOTE-HOST $remote_addr; proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for; proxy_set_header ABCXYZ-REAL-IP $remote_addr; proxy_set_header X-Real-IP $remote_addr; proxy_set_header X-Nginx-Proxy true; proxy_set_header Connection &amp;#34;&amp;#34;; #limit_req zone=limitdashi burst=5 nodelay; proxy_set_header Upgrade $http_upgrade; proxy_set_header Connection &amp;#34;upgrade&amp;#34;; } } 通过这样一个代理将请求转发给后端的 Tomcat 服务器 目录说明 现有使用 Vue 3.3 生成的 VuePro</description>
+    </item>
+    
+    <item>
+      <title>VSCode如何避免 import{} 自动换行</title>
+      <link>https://yujinping.top/post/vue/js_import_formatter/</link>
+      <pubDate>Mon, 11 Jan 2021 18:23:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/vue/js_import_formatter/</guid>
+      <description>VSCode 如何避免 es6 import {} 自动换行 import { Message } from &amp;#34;element-ui&amp;#34;; // 格式化后立马变成下面这样，丑死了 import { Message } from &amp;#34;element-ui&amp;#34;; 其实只要设置 VsCode 的设置即可。 在 MacBook Pro 下： Code -&amp;gt; 首选项 -&amp;gt; 设置 然后搜索 beautify 并点击在 json 中编辑，在 json 配置文件的末尾加入如下配置即可： &amp;#34;beautify.config&amp;#34;: { &amp;#34;brace_style&amp;#34;: &amp;#34;collapse,preserve-inline&amp;#34; } 测试过确实可行！ 问题参考链接： es6 import 格式化 GitHub issue 链接：https://git</description>
+    </item>
+    
+    <item>
+      <title>我的 .eslintrc.js 配置</title>
+      <link>https://yujinping.top/post/vue/my_eslintrc_js/</link>
+      <pubDate>Mon, 11 Jan 2021 18:23:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/vue/my_eslintrc_js/</guid>
+      <description>我的 .eslintrc.js 配置 module.exports = { root: true, env: { node: true, }, extends: [&amp;#34;plugin:vue/essential&amp;#34;, &amp;#34;@vue/standard&amp;#34;], rules: { &amp;#34;no-console&amp;#34;: process.env.NODE_ENV === &amp;#34;production&amp;#34; ? &amp;#34;error&amp;#34; : &amp;#34;off&amp;#34;, &amp;#34;no-debugger&amp;#34;: process.env.NODE_ENV === &amp;#34;production&amp;#34; ? &amp;#34;error&amp;#34; : &amp;#34;off&amp;#34;, semi: 0, &amp;#34;no-throw-literal&amp;#34;: 0, &amp;#34;keyword-spacing&amp;#34;: [ &amp;#34;error&amp;#34;, { before: true, after: true, }, ], &amp;#34;space-before-function-paren&amp;#34;: 0, quotes: [0, &amp;#34;double&amp;#34;], }, parserOptions: { parser: &amp;#34;babel-eslint&amp;#34;, }, };</description>
+    </item>
+    
+    <item>
+      <title>Vue开发时如何忽略ES Lint校验</title>
+      <link>https://yujinping.top/post/vue/ignore-es-lint/</link>
+      <pubDate>Sun, 10 Jan 2021 18:23:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/vue/ignore-es-lint/</guid>
+      <description>Vue 开发时如何忽略 ES Lint 校验 使用.eslintignore 文件 在 Vue 工程的根目录下，打开 eslint 的忽略文件.eslintignore（若无则创建一个） 不想校验什么文件，就写进去。 假如不想校验所有的 js 文件，写上*.js 就可以了。</description>
+    </item>
+    
+    <item>
+      <title>使用 ElementUI 上传图片前预览</title>
+      <link>https://yujinping.top/post/vue/image_upload_preview_with_element_vue/</link>
+      <pubDate>Sun, 10 Jan 2021 18:23:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/vue/image_upload_preview_with_element_vue/</guid>
+      <description>使用 ElementUI 上传图片前预览 当使用 ElementUI 上传图片时，需要先预览该选中的图像文件 &amp;lt;div class=&amp;#34;layui-inline&amp;#34;&amp;gt; &amp;lt;img v-if=&amp;#34;poster.length&amp;gt;0&amp;#34; :src=&amp;#34;poster&amp;#34; width=&amp;#34;40&amp;#34; height=&amp;#34;40&amp;#34; /&amp;gt; &amp;lt;el-upload class=&amp;#34;upload-demo&amp;#34; ref=&amp;#34;upload&amp;#34; action=&amp;#34;https://jsonplaceholder.typicode.com/posts/&amp;#34; :on-change=&amp;#34;onFileSelected&amp;#34; :auto-upload=&amp;#34;false&amp;#34; :multiple=&amp;#34;false&amp;#34; :with-credentials=&amp;#34;true&amp;#34; :show-file-list=&amp;#34;false&amp;#34; accept=&amp;#34;image/*&amp;#34; &amp;gt; &amp;lt;el-button slot=&amp;#34;trigger&amp;#34; size=&amp;#34;small&amp;#34; type=&amp;#34;primary&amp;#34;&amp;gt;选取文件&amp;lt;/el-button&amp;gt; &amp;lt;div slot=&amp;#34;tip&amp;#34; class=&amp;#34;el-upload__tip&amp;#34;&amp;gt;只</description>
+    </item>
+    
+    <item>
+      <title>使用axios的Promise封装</title>
+      <link>https://yujinping.top/post/vue/axios_with_promise/</link>
+      <pubDate>Sat, 09 Jan 2021 18:23:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/vue/axios_with_promise/</guid>
+      <description>使用 axios 的 Promise 封装 简单的 axios 封装 ajax.js import axios from &amp;#34;axios&amp;#34;; const headers = { &amp;#34;Content-Type&amp;#34;: &amp;#34;application/x-www-form-urlencoded&amp;#34; }; function process(res) { let body = res.data; if (body.code === 0) { return new Promise(function (resolve, reject) { resolve(body.data); }); } else { return new Promise(function (resolve, reject) { reject({ code: body.code, msg: body.msg }); }); } } function get(uri, params) { return axios.get(uri, { params: params, headers: headers }).then((res) =&amp;gt; { return process(res); }); } function post(uri, params) { let data = new FormData(); for (let item in params) { data.append(item.toString(), params[item].toString()); } return axios .post(uri, data, { headers: headers, }) .then((res) =&amp;gt; { return process(res); }); } function remove(uri, params) { return axios .delete(uri, { params: params, headers: headers, }) .then((res) =&amp;gt; { return process(res); }); } const ajax = { get: get,</description>
+    </item>
+    
+    <item>
+      <title>axios 使用 post 的正确姿势</title>
+      <link>https://yujinping.top/post/vue/axios_with_post/</link>
+      <pubDate>Fri, 08 Jan 2021 18:23:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/vue/axios_with_post/</guid>
+      <description>axios 使用 post 的正确姿势 当进行 Ajax POST 请求时，后端程序使用 request.getParameter 的方式获取参数，需要将 axios 的缺省配置进行调整才可能正确传递参数 直接上代码： function post(uri, params) { let data = new FormData(); for (let item in params) { data.append(item.toString(), params[item].toString()); } return axios.post(uri, data, { headers: { &amp;#34;Content-Type&amp;#34;: &amp;#34;application/x-www-form-urlencoded&amp;#34; }, }); } 即可，没有网络上那么多复杂的转码设置。</description>
+    </item>
+    
+    <item>
+      <title>使用 zip4j 处理压缩文件</title>
+      <link>https://yujinping.top/post/java/using_zip4j_resolve_zip_files/</link>
+      <pubDate>Thu, 07 Jan 2021 18:23:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/java/using_zip4j_resolve_zip_files/</guid>
+      <description>使用 zip4j 处理压缩文件 通常情况下使用 java 处理 zip 文件时，有 java.util.zip 包下类可以使用。 但这些包过于基础且难于使用。 zip4j 有简单易用的 api，几乎可以完美使用于各种 ZIP 相关操作的场景中。 常用的 zip 处理场景包括： 压缩： 将文件打包存储到 zip 文件 将文件打包到 zip 文件内的特定文件夹内 解压： 将指定 zip 内所有文件解压到指定的</description>
+    </item>
+    
+    <item>
+      <title>使用 Nginx Unit 部署 JavaWebApp</title>
+      <link>https://yujinping.top/post/java/using_nginx_unit_deploy_java_webapp/</link>
+      <pubDate>Wed, 06 Jan 2021 18:23:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/java/using_nginx_unit_deploy_java_webapp/</guid>
+      <description>使用 Nginx Unit 部署 JavaWebApp 从源码构建和安装 NginxUnit 主要参考：http://unit.nginx.org/installation/#source-code # 下载源码 git clone https://github.com/nginx/unit cd unit # 配置路径前缀 ./configurate --prefix=/apps/unit # 配置 java 模块 ./configurate java # 生成应用并安装到 /apps/unit make &amp;amp;&amp;amp; make install 启动和停止 NginxUnit cd /apps/unit # 查看命令行使用帮助 ./sbin/unitd --help # 使用命令行形式启动控</description>
+    </item>
+    
+    <item>
+      <title>在Nginx中使用SSL安全协议</title>
+      <link>https://yujinping.top/post/tools/nginx_with_ssl_cert_keys/</link>
+      <pubDate>Fri, 03 Jan 2020 12:25:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/tools/nginx_with_ssl_cert_keys/</guid>
+      <description>在 Nginx 中使用 SSL 安全协议 直接上代码： listen 443 ssl; server_name fengxinzi.biz; ssl_certificate /opt/nginx/conf/ssl/server.crt; ssl_certificate_key /opt/nginx/conf/ssl/server.key; ssl_session_cache shared:SSL:1m; ssl_session_timeout 5m; ssl_ciphers HIGH:!aNULL:!MD5; ssl_prefer_server_ciphers on; ssl_protocols TLSv1 TLSv1.1 TLSv1.2; 其中的 ssl_certificate ssl_certificate_key 为证书 如下一段代码是 nginx 内部示例代码： server { listen 443 ssl; server_name localhost; ssl_certificate cert.pem; ssl_certificate_key cert.key; ssl_session_cache shared:SSL:1m; ssl_session_timeout 5m; ssl_ciphers HIGH:!aNULL:!MD5; ssl_prefer_server_ciphers on; location / { root html; index index.html index.htm; } }</description>
+    </item>
+    
+    <item>
+      <title>部署 Let’s Encrypt 免费 SSL 证书&amp;&amp;自动续期</title>
+      <link>https://yujinping.top/post/tools/nginx_ssl_lets_encrypt/</link>
+      <pubDate>Thu, 02 Jan 2020 22:23:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/tools/nginx_ssl_lets_encrypt/</guid>
+      <description>部署 Let’s Encrypt 免费 SSL 证书&amp;amp;&amp;amp;自动续期 免费 SSL 证书站点 https://letsencrypt.org/zh-cn/getting-started/ 前提 需要有域名，它会生成指定域名的证书。(填 IP 会报错不支持的) 需要在域名指向的服务器上能访问 https。(不然会报找不到 443 端口的错误) 需要 linux 环境。 部署 获取 Let&amp;rsquo;s Encrypt ##获取安装工具 wget https://dl.eff.org/certbot-auto ##设置安装工具为可执行 chmod a+x certbot-auto 执</description>
+    </item>
+    
+    <item>
+      <title>Nginx在MacOS上的自动启动设置</title>
+      <link>https://yujinping.top/post/tools/nginx_auto_start_on_mac/</link>
+      <pubDate>Thu, 02 Jan 2020 20:23:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/tools/nginx_auto_start_on_mac/</guid>
+      <description>Nginx 在 MacOS 上的自动启动设置 在 MacOS 上通过 brew 安装的 nginx 默认安装在 /usr/local/Cellar/nginx ,通过 brew 安装的时候自动生成了 homebrew.mxcl.nginx.plist 这个文件 将该文件拷贝到 /Library/LaunchDaemons 或者在该文件夹建立 homebrew.mxcl.nginx.plist 这个文件的软连接（MacOS 的访达右键菜单里称为“替身”） 该文件是其实是 XML 文本，其内容是： &amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt; &amp;lt;!DOCTYPE plist PUBLIC &amp;#34;-//Apple//DTD PLIST 1.0//EN&amp;#34; &amp;#34;http://www.apple.com/DTDs/PropertyList-1.0.dtd&amp;#34;&amp;gt; &amp;lt;plist version=&amp;#34;1.0&amp;#34;&amp;gt; &amp;lt;dict&amp;gt; &amp;lt;key&amp;gt;Label&amp;lt;/key&amp;gt; &amp;lt;string&amp;gt;homebrew.mxcl.nginx&amp;lt;/string&amp;gt; &amp;lt;key&amp;gt;RunAtLoad&amp;lt;/key&amp;gt; &amp;lt;true/&amp;gt; &amp;lt;key&amp;gt;KeepAlive&amp;lt;/key&amp;gt; &amp;lt;false/&amp;gt; &amp;lt;key&amp;gt;ProgramArguments&amp;lt;/key&amp;gt; &amp;lt;array&amp;gt; &amp;lt;string&amp;gt;/usr/local/bin/nginx&amp;lt;/string&amp;gt; &amp;lt;string&amp;gt;-g&amp;lt;/string&amp;gt; &amp;lt;string&amp;gt;daemon off;&amp;lt;/string&amp;gt; &amp;lt;/array&amp;gt; &amp;lt;key&amp;gt;WorkingDirectory&amp;lt;/key&amp;gt; &amp;lt;string&amp;gt;/usr/local&amp;lt;/string&amp;gt; &amp;lt;/dict&amp;gt; &amp;lt;/plist&amp;gt; 然</description>
+    </item>
+    
+    <item>
+      <title>如何在 MacOs 上使用 VPN 的时候管理路由</title>
+      <link>https://yujinping.top/post/tools/how_to_manage_route_on_os_x/</link>
+      <pubDate>Thu, 02 Jan 2020 18:23:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/tools/how_to_manage_route_on_os_x/</guid>
+      <description>环境说明 首先链接上 VPN 网络 并查看 VPN 网卡的网关 本例中 VPN 网关是192.168.255.21 要路由的 IP 地址是10.10.10.10(即目标服务器的 IP 地址) 增加路由 sudo route -n add -net 106.14.10.109 -netmask 255.255.255.255 -gateway 192.168.255.21 删除路由 sudo route -n add -net 106.14.10.109 -netmask 255.255.255.255 -gateway 192.168.255.21</description>
+    </item>
+    
+    <item>
+      <title>nacos 2.0.3 的完整sql</title>
+      <link>https://yujinping.top/post/mysql/nacos_2.0.3.sql/</link>
+      <pubDate>Wed, 01 Jan 2020 18:23:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/mysql/nacos_2.0.3.sql/</guid>
+      <description>nacos 2.0.3 的完整 sql CREATE TABLE `config_info` ( `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT &amp;#39;id&amp;#39;, `data_id` varchar(255) NOT NULL COMMENT &amp;#39;data_id&amp;#39;, `group_id` varchar(255) DEFAULT NULL, `content` longtext NOT NULL COMMENT &amp;#39;content&amp;#39;, `md5` varchar(32) DEFAULT NULL COMMENT &amp;#39;md5&amp;#39;, `gmt_create` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT &amp;#39;创建时间&amp;#39;, `gmt_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT &amp;#39;修改时间&amp;#39;, `src_user` text COMMENT &amp;#39;source user&amp;#39;, `src_ip` varchar(50) DEFAULT NULL COMMENT &amp;#39;source ip&amp;#39;, `app_name` varchar(128) DEFAULT NULL, `tenant_id` varchar(128) DEFAULT &amp;#39;&amp;#39; COMMENT &amp;#39;租户字段&amp;#39;, `c_desc` varchar(256) DEFAULT NULL, `c_use` varchar(64) DEFAULT NULL, `effect` varchar(64) DEFAULT NULL, `type` varchar(64) DEFAULT NULL, `c_schema` text, PRIMARY KEY (`id`),</description>
+    </item>
+    
+    <item>
+      <title>如何在 CentOS8 上安装 MYSQL8</title>
+      <link>https://yujinping.top/post/mysql/centos8_install_mysql8/</link>
+      <pubDate>Wed, 01 Jan 2020 18:23:00 +0800</pubDate>
+      
+      <guid>https://yujinping.top/post/mysql/centos8_install_mysql8/</guid>
+      <description>如何在 CentOS8 上安装 MYSQL8 执行如下命令依次安装 common,lib,client,server tar -xvf mysql-8.0.11-1.el7.x86_64.rpm-bundle.tar rpm -ivh mysql-community-common-8.0.11-1.el7.x86_64.rpm --nodeps --force rpm -ivh mysql-community-libs-8.0.11-1.el7.x86_64.rpm --nodeps --force rpm -ivh mysql-community-client-8.0.11-1.el7.x86_64.rpm --nodeps --force rpm -ivh mysql-community-server-8.0.11-1.el7.x86_64.rpm --nodeps --force 查看 mysql 的安装包 rpm -qa | grep mysql mysql 数据库的初始化和相关配置 mysqld --initialize; chown mysql:mysql /var/lib/mysql -R; systemctl start mysqld.service; systemctl enable mysqld; 查看刚刚初始化的数据库密码 cat /var/log/mysqld.log | grep password 登入数据库 mysql -uroot -p 重设密码 root 密码 ALTER USER &amp;#39;root&amp;#39;@&amp;#39;localhost&amp;#39; IDENTIFIED WITH mysql_native_password BY &amp;#39;&amp;#39;; flush privileges; 创建远程访问用户 create user &amp;#39;resin&amp;#39;@&amp;#39;%&amp;#39; identified with mysql_native_password by &amp;#39;Fxz03&amp;amp;80&amp;amp;67yjP&amp;#39;; grant all</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://yujinping.top/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://yujinping.top/about/</guid>
+      <description>关于 Mr.Yu 先生</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://yujinping.top/archives/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://yujinping.top/archives/</guid>
+      <description>title: &amp;ldquo;归档&amp;rdquo; description: Android 资深工程师 ，Go 和 Java 打杂师，《Android Gradle 权威指南》作者，Android 官方技术文档译者 type: archives</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://yujinping.top/post/java/using_idea_with_crack_code/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://yujinping.top/post/java/using_idea_with_crack_code/</guid>
+      <description>IDEA 企业版的破解 对于 Java 开发人员来说，使用 JetBrains 的 IDEA 开发工具是相当的省力的，足够聪明的智能提示能令你省去不少时间，同时变量名和类名可以使用更加容易表达的单词组合的方式进行。 虽然 JetBrains 有免费的社区版本的,但是不少工具其实是基于企业版本的。比如数据库的管理等。因此通常下载其企业版的最新版。我使用</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://yujinping.top/post/java/using_nginx_proxy_pass_to_active_JRebel/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://yujinping.top/post/java/using_nginx_proxy_pass_to_active_JRebel/</guid>
+      <description>使用 Nginx 反向代理激活 IDEA 的插件 JRebel 在做 Java 开发，尤其是 Java Web 开发的时候，频繁的修改代码，频繁的重新部署，频繁的重启服务器，浪费了大量的时间。 使用 IDEA 的插件 JRebel 可以结束这一耗费生命的无限循环。 安装 JRebel 插件 在 IDEA 2018.3 MacOs 版本的系统菜单点击「Preferences」进入，点选「Plugins」标签进入插件市</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://yujinping.top/post/test/using_appium_test_iphone_app/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://yujinping.top/post/test/using_appium_test_iphone_app/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://yujinping.top/post/tools/mac_short_key/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://yujinping.top/post/tools/mac_short_key/</guid>
+      <description>Mac OS 下快捷键知识贴 切换多个桌面 Control + 箭头 → ← 可以快速切换不同的桌面 使用触摸板，三指左右滑动即可切换</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://yujinping.top/post/wx/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://yujinping.top/post/wx/</guid>
+      <description>微信小程序 &amp;#34;devDependencies&amp;#34;: { &amp;#34;babel-preset-env&amp;#34;: &amp;#34;^1.7.0&amp;#34;, &amp;#34;babel-register&amp;#34;: &amp;#34;^6.26.0&amp;#34;, &amp;#34;vuepress&amp;#34;: &amp;#34;^1.4.0&amp;#34; },</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://yujinping.top/tags/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://yujinping.top/tags/</guid>
+      <description>title: &amp;ldquo;标签&amp;rdquo; description: Android 资深工程师 ，Go 和 Java 打杂师，《Android Gradle 权威指南》作者，Android 官方技术文档译者 type: tags</description>
+    </item>
+    
+    <item>
+      <title>搜索</title>
+      <link>https://yujinping.top/search/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://yujinping.top/search/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
